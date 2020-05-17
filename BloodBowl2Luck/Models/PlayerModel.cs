@@ -20,7 +20,7 @@ namespace BloodBowl2Luck.Models
         public int Level { get; set; }
         public int Number { get; set; }
         public int Experience { get; set; }
-        public List<SkillEnum> Skills { get; set; }
+        public List<int> Skills { get; set; }
         public int TeamId { get; set; }
 
     }

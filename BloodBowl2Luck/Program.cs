@@ -30,19 +30,9 @@ namespace BloodBowl2Luck
             XmlDocument doc = _xmlService.GetXml();
             var players = _playerService.GetPlayers(doc);
             var count = 0;
-            foreach (XmlNode node in doc.DocumentElement)
+            foreach (XmlNode node in doc.DocumentElement.GetElementsByTagName("Results"))
             {
-                
-                if(node.Name == "ReplayStep")
-                {
-                    
-                    count++;
-                    if (count == 25)
-                    {
-                        var x = node.FirstChild;
-                        var f = 3;
-                    }
-                }
+                count++;
             }
             
             System.Console.WriteLine(count);

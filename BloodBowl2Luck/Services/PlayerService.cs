@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 using System.Xml;
+using static BloodBowl2Luck.Enum.Enums;
 
 namespace BloodBowl2Luck.Services
 {
@@ -38,18 +39,20 @@ namespace BloodBowl2Luck.Services
                                 {
                                     var playerDataChildren = players.ChildNodes;
                                     var tempPlayer = new PlayerModel();
-                                    foreach (XmlElement v in playerDataChildren)
+                                    foreach (XmlElement p in playerDataChildren)
                                     {
-                                        if (v.Name == "Ma") tempPlayer.Ma = Convert.ToInt16(v.FirstChild.Value);
-                                        else if (v.Name == "Name") tempPlayer.Name = v.FirstChild.Value;
-                                        else if (v.Name == "Ag") tempPlayer.Ag = Convert.ToInt16(v.FirstChild.Value);
-                                        else if (v.Name == "Level") tempPlayer.Level = Convert.ToInt16(v.FirstChild.Value);
-                                        else if (v.Name == "Experience") tempPlayer.Experience = Convert.ToInt16(v.FirstChild.Value);
-                                        else if (v.Name =="Number") tempPlayer.Number = Convert.ToInt16(v.FirstChild.Value); 
-                                        else if (v.Name == "Av") tempPlayer.Av = Convert.ToInt16(v.FirstChild.Value); 
-                                        else if (v.Name == "St") tempPlayer.St = Convert.ToInt16(v.FirstChild.Value); 
-                                        else if (v.Name == "Id") tempPlayer.PlayerId = Convert.ToInt16(v.FirstChild.Value);
-                                        else if (v.Name == "TeamId") tempPlayer.TeamId = Convert.ToInt16(v.FirstChild.Value);
+                                        
+                                        if (p.Name == "Ma") tempPlayer.Ma = Convert.ToInt16(p.FirstChild.Value);
+                                        else if (p.Name == "Name") tempPlayer.Name = p.FirstChild.Value;
+                                        else if (p.Name == "Ag") tempPlayer.Ag = Convert.ToInt16(p.FirstChild.Value);
+                                        else if (p.Name == "Level") tempPlayer.Level = Convert.ToInt16(p.FirstChild.Value);
+                                        else if (p.Name == "Experience") tempPlayer.Experience = Convert.ToInt16(p.FirstChild.Value);
+                                        else if (p.Name =="Number") tempPlayer.Number = Convert.ToInt16(p.FirstChild.Value); 
+                                        else if (p.Name == "Av") tempPlayer.Av = Convert.ToInt16(p.FirstChild.Value); 
+                                        else if (p.Name == "St") tempPlayer.St = Convert.ToInt16(p.FirstChild.Value); 
+                                        else if (p.Name == "Id") tempPlayer.PlayerId = Convert.ToInt16(p.FirstChild.Value);
+                                        else if (p.Name == "TeamId") tempPlayer.TeamId = Convert.ToInt16(p.FirstChild.Value);
+                                        else if (p.Name == "ListSkills") PopulatePlayerSkills(p,tempPlayer);
                                         //TODO add List of Skills
                                     }
                                     rtn.Add(tempPlayer);
@@ -61,6 +64,23 @@ namespace BloodBowl2Luck.Services
             }
             return rtn;
 
+        }
+
+        private void PopulatePlayerSkills(XmlElement p, PlayerModel player)
+        {
+            var listSkillsSting =  p.FirstChild.Value;
+            var csv = listSkillsSting.TrimEnd(')').TrimStart('(');
+
+            var skillArray = csv.Split(',');
+            var ints = Array.ConvertAll(skillArray, s => int.Parse(s));
+            player.Skills = ints.ToList();
+            //foreach (var skill in skillArray)
+            //{
+            //    var skillint = Convert.ToInt16(skill);
+            //    var skillEnum = SkillEnum.Dodge;
+            //    playerSkills.Add(skillint);
+            //}
+            var lfd = 3;
         }
 
         //Return list of players for a team
