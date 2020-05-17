@@ -21,5 +21,9 @@ namespace BloodBowl2Luck.XMLService
         {
             return 2 + 2;
         }
+
+        internal void GEtTest()
+        {
+        }
     }
 }

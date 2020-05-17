@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BloodBowl2Luck.Models
 {
-    class TeamModel
+    public class TeamModel
     {
     }
 }

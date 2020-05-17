@@ -11,16 +11,17 @@ namespace BloodBowl2Luck.Models
 
     public class PlayerModel
     {
-        private int PlayerId { get; set; }
-        private string Name { get; set; }
-        private int Ma { get; set; }
-        private int Ag { get; set; }
-        private int Av { get; set; }
-        private int St { get; set; }
-        private int Level { get; set; }
-        private int Number { get; set; }
-        private int Experience { get; set; }
-        private List<SkillEnum> Skills { get; set; }
-        private int TeamId { get; set; }
+        public int PlayerId { get; set; }
+        public string Name { get; set; }
+        public int Ma { get; set; }
+        public int Ag { get; set; }
+        public int Av { get; set; }
+        public int St { get; set; }
+        public int Level { get; set; }
+        public int Number { get; set; }
+        public int Experience { get; set; }
+        public List<SkillEnum> Skills { get; set; }
+        public int TeamId { get; set; }
+
     }
 }

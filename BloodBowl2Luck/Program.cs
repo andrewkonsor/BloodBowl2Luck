@@ -1,4 +1,5 @@
-﻿using BloodBowl2Luck.XMLService;
+﻿using BloodBowl2Luck.Services;
+using BloodBowl2Luck.XMLService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +11,13 @@ namespace BloodBowl2Luck
 {
     class Program
     {
+        public static PlayerService _playerService;
         public static XmlService _xmlService;
 
-        public Program(XmlService xmlService)
+        public Program(XmlService xmlService,PlayerService playerService)
         {
             _xmlService = xmlService;
+            _playerService = playerService;
         }
         private static void Run()
         {
@@ -23,11 +26,10 @@ namespace BloodBowl2Luck
 
         static void Main(string[] args)
         {
-            var p = new Program(new XmlService());
+            var p = new Program(new XmlService(), new PlayerService());
             XmlDocument doc = _xmlService.GetXml();
+            var players = _playerService.GetPlayers(doc);
             var count = 0;
-            var replaySteps = doc.GetElementsByTagName("RollType");
-            var r1 = replaySteps[0];
             foreach (XmlNode node in doc.DocumentElement)
             {
                 
