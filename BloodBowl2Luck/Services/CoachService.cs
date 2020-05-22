@@ -12,7 +12,7 @@ namespace BloodBowl2Luck.Services
     public class CoachService
     {
         //Return coach by Id
-        public CoachService GetCoachById(int id, List<CoachModel> players)
+        public CoachService GetCoachById(int id, List<CoachModel> coaches)
         {
             throw new NotImplementedException();
         }

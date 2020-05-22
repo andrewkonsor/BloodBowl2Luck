@@ -8,5 +8,8 @@ namespace BloodBowl2Luck.Models
 {
     public class TeamModel
     {
+        public int Value { get; set; }
+        public string Name { get; set; }
+        public int IdRace { get; set; }
     }
 }
