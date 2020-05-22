@@ -13,8 +13,8 @@ namespace BloodBowl2Luck.XMLService
         public XmlDocument GetXml()
         {
             XmlDocument doc = new XmlDocument();
-            doc.Load("C:\\Users\\Andrew\\Desktop\\bb2test\\test2.xml");
-            //doc.Load("C:\\Users\\aricm\\OneDrive\\Desktop\\test1.xml");
+            //doc.Load("C:\\Users\\Andrew\\Desktop\\bb2test\\test2.xml");
+            doc.Load("C:\\Users\\aricm\\OneDrive\\Desktop\\test1.xml");
             return doc;
         }
 
