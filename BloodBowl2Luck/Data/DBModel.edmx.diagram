@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9a2fbae28a764b90868a8705edb0ac92" Name="Diagram1" ZoomLevel="54">
+        <EntityTypeShape EntityType="BloodBowlDbModel.Owner" Width="1.5" PointX="13.875" PointY="0.5" />
+        <EntityTypeShape EntityType="BloodBowlDbModel.Race" Width="1.5" PointX="12.625" PointY="2.875" />
+        <EntityTypeShape EntityType="BloodBowlDbModel.Team" Width="1.5" PointX="10.5" PointY="0.5" />
+        <AssociationConnector Association="BloodBowlDbModel.FK_Team_Race" />
+        <EntityTypeShape EntityType="BloodBowlDbModel.Competition" Width="1.5" PointX="8.25" PointY="2.875" />
+        <EntityTypeShape EntityType="BloodBowlDbModel.CompetitionType" Width="1.5" PointX="8.375" PointY="6.125" />
+        <EntityTypeShape EntityType="BloodBowlDbModel.League" Width="1.5" PointX="6.375" PointY="4.25" />
+        <EntityTypeShape EntityType="BloodBowlDbModel.TeamLeagueAssoc" Width="1.5" PointX="6.125" PointY="1.5" />
+        <AssociationConnector Association="BloodBowlDbModel.FK_Competition_League" />
+        <AssociationConnector Association="BloodBowlDbModel.FK_TeamLeagueAssoc_League" />
+        <AssociationConnector Association="BloodBowlDbModel.FK_Team_ToTable" />
+        <AssociationConnector Association="BloodBowlDbModel.FK_TeamLeagueAssoc_Team" />
+        <EntityTypeShape EntityType="BloodBowlDbModel.Game" Width="1.5" PointX="10.875" PointY="4.875" />
+        <EntityTypeShape EntityType="BloodBowlDbModel.GameAction" Width="1.5" PointX="4.5" PointY="8.625" />
+        <EntityTypeShape EntityType="BloodBowlDbModel.Player" Width="1.5" PointX="4.375" PointY="0.75" />
+        <EntityTypeShape EntityType="BloodBowlDbModel.PlayerGameAssoc" Width="1.5" PointX="0.75" PointY="4" />
+        <EntityTypeShape EntityType="BloodBowlDbModel.PlayerGameSkillAssoc" Width="1.5" PointX="3.125" PointY="6" />
+        <EntityTypeShape EntityType="BloodBowlDbModel.Replay" Width="1.5" PointX="12.875" PointY="5.125" />
+        <EntityTypeShape EntityType="BloodBowlDbModel.Skill" Width="1.5" PointX="3.75" PointY="3.75" />
+        <EntityTypeShape EntityType="BloodBowlDbModel.PlayerType" Width="1.5" PointX="2.125" PointY="1.125" />
+        <AssociationConnector Association="BloodBowlDbModel.FK_Competition_CompetionType" />
+        <AssociationConnector Association="BloodBowlDbModel.FK_Game_Competition" />
+        <AssociationConnector Association="BloodBowlDbModel.FK_Game_AwayTeam" />
+        <AssociationConnector Association="BloodBowlDbModel.FK_Game_HomeTeam" />
+        <AssociationConnector Association="BloodBowlDbModel.FK_Game_Replay" />
+        <AssociationConnector Association="BloodBowlDbModel.FK_GameActions_Game" />
+        <AssociationConnector Association="BloodBowlDbModel.FK_PlayerGameAssoc_Game" />
+        <AssociationConnector Association="BloodBowlDbModel.FK_GameActions_Player1" />
+        <AssociationConnector Association="BloodBowlDbModel.FK_GameActions_Player2" />
+        <AssociationConnector Association="BloodBowlDbModel.FK_Player_PlayerType" />
+        <AssociationConnector Association="BloodBowlDbModel.FK_Player_Team" />
+        <AssociationConnector Association="BloodBowlDbModel.FK_PlayerGameAssoc_Player" ManuallyRouted="true" >
+          <ConnectorPoint PointX="4.53125" PointY="3.114889322916667" />
+          <ConnectorPoint PointX="4.53125" PointY="3.585977708872492" />
+          <ConnectorPoint PointX="3.0028125" PointY="3.585977708872492" />
+          <ConnectorPoint PointX="3.0028125" PointY="5.6439925130208328" />
+          <ConnectorPoint PointX="2.25" PointY="5.6439925130208328" />
+        </AssociationConnector>
+        <AssociationConnector Association="BloodBowlDbModel.FK_PlayerGameSkillAssoc_PlayerGame" />
+        <AssociationConnector Association="BloodBowlDbModel.FK_PlayerGameSkillAssoc_Skill" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
