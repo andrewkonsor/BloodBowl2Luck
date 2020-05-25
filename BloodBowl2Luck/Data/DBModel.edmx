@@ -1,0 +1,1167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BloodBowlDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Competition">
+          <Key>
+            <PropertyRef Name="CompetitionId" />
+          </Key>
+          <Property Name="CompetitionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LeagueId" Type="int" Nullable="false" />
+          <Property Name="CompetitionTypeId" Type="int" Nullable="false" />
+          <Property Name="MaxTeams" Type="int" Nullable="false" />
+          <Property Name="TurnDuration" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CompetitionType">
+          <Key>
+            <PropertyRef Name="CompetitionTypeId" />
+          </Key>
+          <Property Name="CompetitionTypeId" Type="int" Nullable="false" />
+          <Property Name="Description" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Game">
+          <Key>
+            <PropertyRef Name="GameId" />
+          </Key>
+          <Property Name="GameId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompetitionId" Type="int" Nullable="false" />
+          <Property Name="HomeTeamId" Type="int" Nullable="false" />
+          <Property Name="AwayTeamId" Type="int" Nullable="false" />
+          <Property Name="GameDate" Type="date" />
+          <Property Name="CompetionWeek" Type="int" Nullable="false" />
+          <Property Name="HomeScore" Type="int" Nullable="false" />
+          <Property Name="AwayScore" Type="int" Nullable="false" />
+          <Property Name="ReplayId" Type="int" />
+          <Property Name="StadiumLevel" Type="nchar" MaxLength="10" />
+          <Property Name="StadiumName" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="GameActions">
+          <Key>
+            <PropertyRef Name="GameActionId" />
+          </Key>
+          <Property Name="GameActionId" Type="int" Nullable="false" />
+          <Property Name="GameId" Type="int" Nullable="false" />
+          <Property Name="ActionTypeId" Type="int" Nullable="false" />
+          <Property Name="GamePlayerAssocId1" Type="int" />
+          <Property Name="GamePlayerAssocId2" Type="int" />
+          <Property Name="Turn" Type="int" Nullable="false" />
+          <Property Name="Dice1" Type="int" />
+          <Property Name="Dice2" Type="int" />
+          <Property Name="Dice3" Type="int" />
+          <Property Name="RequiredRoll" Type="int" />
+          <Property Name="TurnoverRoll" Type="int" />
+        </EntityType>
+        <EntityType Name="League">
+          <Key>
+            <PropertyRef Name="LeagueId" />
+          </Key>
+          <Property Name="LeagueId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Logo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="LeagueName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Owner">
+          <Key>
+            <PropertyRef Name="OwnerId" />
+          </Key>
+          <Property Name="OwnerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LoginId" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Player">
+          <Key>
+            <PropertyRef Name="PlayerId" />
+          </Key>
+          <Property Name="PlayerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TeamId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PlayerTypeId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PlayerGameAssoc">
+          <Key>
+            <PropertyRef Name="PlayerGameAssocId" />
+          </Key>
+          <Property Name="PlayerGameAssocId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PlayerId" Type="int" />
+          <Property Name="GameId" Type="int" />
+          <Property Name="Ma" Type="int" />
+          <Property Name="Ag" Type="int" />
+          <Property Name="St" Type="int" />
+          <Property Name="Av" Type="int" />
+          <Property Name="Number" Type="int" />
+          <Property Name="Experience" Type="int" />
+        </EntityType>
+        <EntityType Name="PlayerGameSkillAssoc">
+          <Key>
+            <PropertyRef Name="PlayerGameSkillAssocId" />
+          </Key>
+          <Property Name="PlayerGameSkillAssocId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PlayerGameId" Type="int" Nullable="false" />
+          <Property Name="SkillId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PlayerType">
+          <Key>
+            <PropertyRef Name="PlayerTypeId" />
+          </Key>
+          <Property Name="PlayerTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Race">
+          <Key>
+            <PropertyRef Name="RaceId" />
+          </Key>
+          <Property Name="RaceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RaceName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Replay">
+          <Key>
+            <PropertyRef Name="ReplayId" />
+          </Key>
+          <Property Name="ReplayId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ReplayFileLocation" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Skill">
+          <Key>
+            <PropertyRef Name="SkillId" />
+          </Key>
+          <Property Name="SkillId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SkillName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Team">
+          <Key>
+            <PropertyRef Name="TeamId" />
+          </Key>
+          <Property Name="TeamId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TeamName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="RaceId" Type="int" Nullable="false" />
+          <Property Name="OwnerId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TeamLeagueAssoc">
+          <Key>
+            <PropertyRef Name="TeamLeagueAssocId" />
+          </Key>
+          <Property Name="TeamLeagueAssocId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TeamId" Type="int" Nullable="false" />
+          <Property Name="LeagueId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Competition_CompetionType">
+          <End Role="CompetitionType" Type="Self.CompetitionType" Multiplicity="1" />
+          <End Role="Competition" Type="Self.Competition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CompetitionType">
+              <PropertyRef Name="CompetitionTypeId" />
+            </Principal>
+            <Dependent Role="Competition">
+              <PropertyRef Name="CompetitionTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Competition_League">
+          <End Role="League" Type="Self.League" Multiplicity="1" />
+          <End Role="Competition" Type="Self.Competition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="League">
+              <PropertyRef Name="LeagueId" />
+            </Principal>
+            <Dependent Role="Competition">
+              <PropertyRef Name="LeagueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Game_AwayTeam">
+          <End Role="Team" Type="Self.Team" Multiplicity="1" />
+          <End Role="Game" Type="Self.Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Team">
+              <PropertyRef Name="TeamId" />
+            </Principal>
+            <Dependent Role="Game">
+              <PropertyRef Name="AwayTeamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Game_Competition">
+          <End Role="Competition" Type="Self.Competition" Multiplicity="1" />
+          <End Role="Game" Type="Self.Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Competition">
+              <PropertyRef Name="CompetitionId" />
+            </Principal>
+            <Dependent Role="Game">
+              <PropertyRef Name="CompetitionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Game_HomeTeam">
+          <End Role="Team" Type="Self.Team" Multiplicity="1" />
+          <End Role="Game" Type="Self.Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Team">
+              <PropertyRef Name="TeamId" />
+            </Principal>
+            <Dependent Role="Game">
+              <PropertyRef Name="HomeTeamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Game_Replay">
+          <End Role="Replay" Type="Self.Replay" Multiplicity="0..1" />
+          <End Role="Game" Type="Self.Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Replay">
+              <PropertyRef Name="ReplayId" />
+            </Principal>
+            <Dependent Role="Game">
+              <PropertyRef Name="ReplayId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GameActions_Game">
+          <End Role="Game" Type="Self.Game" Multiplicity="1" />
+          <End Role="GameActions" Type="Self.GameActions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Game">
+              <PropertyRef Name="GameId" />
+            </Principal>
+            <Dependent Role="GameActions">
+              <PropertyRef Name="GameId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GameActions_Player1">
+          <End Role="PlayerGameAssoc" Type="Self.PlayerGameAssoc" Multiplicity="0..1" />
+          <End Role="GameActions" Type="Self.GameActions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlayerGameAssoc">
+              <PropertyRef Name="PlayerGameAssocId" />
+            </Principal>
+            <Dependent Role="GameActions">
+              <PropertyRef Name="GamePlayerAssocId1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GameActions_Player2">
+          <End Role="PlayerGameAssoc" Type="Self.PlayerGameAssoc" Multiplicity="0..1" />
+          <End Role="GameActions" Type="Self.GameActions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlayerGameAssoc">
+              <PropertyRef Name="PlayerGameAssocId" />
+            </Principal>
+            <Dependent Role="GameActions">
+              <PropertyRef Name="GamePlayerAssocId2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Player_PlayerType">
+          <End Role="PlayerType" Type="Self.PlayerType" Multiplicity="1" />
+          <End Role="Player" Type="Self.Player" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlayerType">
+              <PropertyRef Name="PlayerTypeId" />
+            </Principal>
+            <Dependent Role="Player">
+              <PropertyRef Name="PlayerTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Player_Team">
+          <End Role="Team" Type="Self.Team" Multiplicity="1" />
+          <End Role="Player" Type="Self.Player" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Team">
+              <PropertyRef Name="TeamId" />
+            </Principal>
+            <Dependent Role="Player">
+              <PropertyRef Name="TeamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlayerGameAssoc_Game">
+          <End Role="Game" Type="Self.Game" Multiplicity="0..1" />
+          <End Role="PlayerGameAssoc" Type="Self.PlayerGameAssoc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Game">
+              <PropertyRef Name="GameId" />
+            </Principal>
+            <Dependent Role="PlayerGameAssoc">
+              <PropertyRef Name="GameId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlayerGameAssoc_Player">
+          <End Role="Player" Type="Self.Player" Multiplicity="0..1" />
+          <End Role="PlayerGameAssoc" Type="Self.PlayerGameAssoc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="PlayerId" />
+            </Principal>
+            <Dependent Role="PlayerGameAssoc">
+              <PropertyRef Name="PlayerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlayerGameSkillAssoc_PlayerGame">
+          <End Role="PlayerGameAssoc" Type="Self.PlayerGameAssoc" Multiplicity="1" />
+          <End Role="PlayerGameSkillAssoc" Type="Self.PlayerGameSkillAssoc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlayerGameAssoc">
+              <PropertyRef Name="PlayerGameAssocId" />
+            </Principal>
+            <Dependent Role="PlayerGameSkillAssoc">
+              <PropertyRef Name="PlayerGameId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlayerGameSkillAssoc_Skill">
+          <End Role="Skill" Type="Self.Skill" Multiplicity="1" />
+          <End Role="PlayerGameSkillAssoc" Type="Self.PlayerGameSkillAssoc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skill">
+              <PropertyRef Name="SkillId" />
+            </Principal>
+            <Dependent Role="PlayerGameSkillAssoc">
+              <PropertyRef Name="SkillId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Team_Race">
+          <End Role="Race" Type="Self.Race" Multiplicity="1" />
+          <End Role="Team" Type="Self.Team" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Race">
+              <PropertyRef Name="RaceId" />
+            </Principal>
+            <Dependent Role="Team">
+              <PropertyRef Name="RaceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Team_ToTable">
+          <End Role="Owner" Type="Self.Owner" Multiplicity="1" />
+          <End Role="Team" Type="Self.Team" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Owner">
+              <PropertyRef Name="OwnerId" />
+            </Principal>
+            <Dependent Role="Team">
+              <PropertyRef Name="OwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TeamLeagueAssoc_League">
+          <End Role="League" Type="Self.League" Multiplicity="1" />
+          <End Role="TeamLeagueAssoc" Type="Self.TeamLeagueAssoc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="League">
+              <PropertyRef Name="LeagueId" />
+            </Principal>
+            <Dependent Role="TeamLeagueAssoc">
+              <PropertyRef Name="LeagueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TeamLeagueAssoc_Team">
+          <End Role="Team" Type="Self.Team" Multiplicity="1" />
+          <End Role="TeamLeagueAssoc" Type="Self.TeamLeagueAssoc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Team">
+              <PropertyRef Name="TeamId" />
+            </Principal>
+            <Dependent Role="TeamLeagueAssoc">
+              <PropertyRef Name="TeamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BloodBowlDbModelStoreContainer">
+          <EntitySet Name="Competition" EntityType="Self.Competition" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CompetitionType" EntityType="Self.CompetitionType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Game" EntityType="Self.Game" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GameActions" EntityType="Self.GameActions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="League" EntityType="Self.League" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Owner" EntityType="Self.Owner" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Player" EntityType="Self.Player" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PlayerGameAssoc" EntityType="Self.PlayerGameAssoc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PlayerGameSkillAssoc" EntityType="Self.PlayerGameSkillAssoc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PlayerType" EntityType="Self.PlayerType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Race" EntityType="Self.Race" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Replay" EntityType="Self.Replay" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Skill" EntityType="Self.Skill" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Team" EntityType="Self.Team" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TeamLeagueAssoc" EntityType="Self.TeamLeagueAssoc" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Competition_CompetionType" Association="Self.FK_Competition_CompetionType">
+            <End Role="CompetitionType" EntitySet="CompetitionType" />
+            <End Role="Competition" EntitySet="Competition" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Competition_League" Association="Self.FK_Competition_League">
+            <End Role="League" EntitySet="League" />
+            <End Role="Competition" EntitySet="Competition" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Game_AwayTeam" Association="Self.FK_Game_AwayTeam">
+            <End Role="Team" EntitySet="Team" />
+            <End Role="Game" EntitySet="Game" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Game_Competition" Association="Self.FK_Game_Competition">
+            <End Role="Competition" EntitySet="Competition" />
+            <End Role="Game" EntitySet="Game" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Game_HomeTeam" Association="Self.FK_Game_HomeTeam">
+            <End Role="Team" EntitySet="Team" />
+            <End Role="Game" EntitySet="Game" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Game_Replay" Association="Self.FK_Game_Replay">
+            <End Role="Replay" EntitySet="Replay" />
+            <End Role="Game" EntitySet="Game" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GameActions_Game" Association="Self.FK_GameActions_Game">
+            <End Role="Game" EntitySet="Game" />
+            <End Role="GameActions" EntitySet="GameActions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GameActions_Player1" Association="Self.FK_GameActions_Player1">
+            <End Role="PlayerGameAssoc" EntitySet="PlayerGameAssoc" />
+            <End Role="GameActions" EntitySet="GameActions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GameActions_Player2" Association="Self.FK_GameActions_Player2">
+            <End Role="PlayerGameAssoc" EntitySet="PlayerGameAssoc" />
+            <End Role="GameActions" EntitySet="GameActions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Player_PlayerType" Association="Self.FK_Player_PlayerType">
+            <End Role="PlayerType" EntitySet="PlayerType" />
+            <End Role="Player" EntitySet="Player" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Player_Team" Association="Self.FK_Player_Team">
+            <End Role="Team" EntitySet="Team" />
+            <End Role="Player" EntitySet="Player" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlayerGameAssoc_Game" Association="Self.FK_PlayerGameAssoc_Game">
+            <End Role="Game" EntitySet="Game" />
+            <End Role="PlayerGameAssoc" EntitySet="PlayerGameAssoc" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlayerGameAssoc_Player" Association="Self.FK_PlayerGameAssoc_Player">
+            <End Role="Player" EntitySet="Player" />
+            <End Role="PlayerGameAssoc" EntitySet="PlayerGameAssoc" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlayerGameSkillAssoc_PlayerGame" Association="Self.FK_PlayerGameSkillAssoc_PlayerGame">
+            <End Role="PlayerGameAssoc" EntitySet="PlayerGameAssoc" />
+            <End Role="PlayerGameSkillAssoc" EntitySet="PlayerGameSkillAssoc" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlayerGameSkillAssoc_Skill" Association="Self.FK_PlayerGameSkillAssoc_Skill">
+            <End Role="Skill" EntitySet="Skill" />
+            <End Role="PlayerGameSkillAssoc" EntitySet="PlayerGameSkillAssoc" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Team_Race" Association="Self.FK_Team_Race">
+            <End Role="Race" EntitySet="Race" />
+            <End Role="Team" EntitySet="Team" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Team_ToTable" Association="Self.FK_Team_ToTable">
+            <End Role="Owner" EntitySet="Owner" />
+            <End Role="Team" EntitySet="Team" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TeamLeagueAssoc_League" Association="Self.FK_TeamLeagueAssoc_League">
+            <End Role="League" EntitySet="League" />
+            <End Role="TeamLeagueAssoc" EntitySet="TeamLeagueAssoc" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TeamLeagueAssoc_Team" Association="Self.FK_TeamLeagueAssoc_Team">
+            <End Role="Team" EntitySet="Team" />
+            <End Role="TeamLeagueAssoc" EntitySet="TeamLeagueAssoc" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BloodBowlDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="BloodBowlDbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Owners" EntityType="BloodBowlDbModel.Owner" />
+          <EntitySet Name="Races" EntityType="BloodBowlDbModel.Race" />
+          <EntitySet Name="Teams" EntityType="BloodBowlDbModel.Team" />
+          <AssociationSet Name="FK_Team_Race" Association="BloodBowlDbModel.FK_Team_Race">
+            <End Role="Race" EntitySet="Races" />
+            <End Role="Team" EntitySet="Teams" />
+          </AssociationSet>
+          <EntitySet Name="Competitions" EntityType="BloodBowlDbModel.Competition" />
+          <EntitySet Name="CompetitionTypes" EntityType="BloodBowlDbModel.CompetitionType" />
+          <EntitySet Name="Leagues" EntityType="BloodBowlDbModel.League" />
+          <EntitySet Name="TeamLeagueAssocs" EntityType="BloodBowlDbModel.TeamLeagueAssoc" />
+          <AssociationSet Name="FK_Competition_League" Association="BloodBowlDbModel.FK_Competition_League">
+            <End Role="League" EntitySet="Leagues" />
+            <End Role="Competition" EntitySet="Competitions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TeamLeagueAssoc_League" Association="BloodBowlDbModel.FK_TeamLeagueAssoc_League">
+            <End Role="League" EntitySet="Leagues" />
+            <End Role="TeamLeagueAssoc" EntitySet="TeamLeagueAssocs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Team_ToTable" Association="BloodBowlDbModel.FK_Team_ToTable">
+            <End Role="Owner" EntitySet="Owners" />
+            <End Role="Team" EntitySet="Teams" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TeamLeagueAssoc_Team" Association="BloodBowlDbModel.FK_TeamLeagueAssoc_Team">
+            <End Role="Team" EntitySet="Teams" />
+            <End Role="TeamLeagueAssoc" EntitySet="TeamLeagueAssocs" />
+          </AssociationSet>
+          <EntitySet Name="Games" EntityType="BloodBowlDbModel.Game" />
+          <EntitySet Name="GameActions" EntityType="BloodBowlDbModel.GameAction" />
+          <EntitySet Name="Players" EntityType="BloodBowlDbModel.Player" />
+          <EntitySet Name="PlayerGameAssocs" EntityType="BloodBowlDbModel.PlayerGameAssoc" />
+          <EntitySet Name="PlayerGameSkillAssocs" EntityType="BloodBowlDbModel.PlayerGameSkillAssoc" />
+          <EntitySet Name="Replays" EntityType="BloodBowlDbModel.Replay" />
+          <EntitySet Name="Skills" EntityType="BloodBowlDbModel.Skill" />
+          <EntitySet Name="PlayerTypes" EntityType="BloodBowlDbModel.PlayerType" />
+          <AssociationSet Name="FK_Competition_CompetionType" Association="BloodBowlDbModel.FK_Competition_CompetionType">
+            <End Role="CompetitionType" EntitySet="CompetitionTypes" />
+            <End Role="Competition" EntitySet="Competitions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Game_Competition" Association="BloodBowlDbModel.FK_Game_Competition">
+            <End Role="Competition" EntitySet="Competitions" />
+            <End Role="Game" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Game_AwayTeam" Association="BloodBowlDbModel.FK_Game_AwayTeam">
+            <End Role="Team" EntitySet="Teams" />
+            <End Role="Game" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Game_HomeTeam" Association="BloodBowlDbModel.FK_Game_HomeTeam">
+            <End Role="Team" EntitySet="Teams" />
+            <End Role="Game" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Game_Replay" Association="BloodBowlDbModel.FK_Game_Replay">
+            <End Role="Replay" EntitySet="Replays" />
+            <End Role="Game" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GameActions_Game" Association="BloodBowlDbModel.FK_GameActions_Game">
+            <End Role="Game" EntitySet="Games" />
+            <End Role="GameAction" EntitySet="GameActions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlayerGameAssoc_Game" Association="BloodBowlDbModel.FK_PlayerGameAssoc_Game">
+            <End Role="Game" EntitySet="Games" />
+            <End Role="PlayerGameAssoc" EntitySet="PlayerGameAssocs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GameActions_Player1" Association="BloodBowlDbModel.FK_GameActions_Player1">
+            <End Role="PlayerGameAssoc" EntitySet="PlayerGameAssocs" />
+            <End Role="GameAction" EntitySet="GameActions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GameActions_Player2" Association="BloodBowlDbModel.FK_GameActions_Player2">
+            <End Role="PlayerGameAssoc" EntitySet="PlayerGameAssocs" />
+            <End Role="GameAction" EntitySet="GameActions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Player_PlayerType" Association="BloodBowlDbModel.FK_Player_PlayerType">
+            <End Role="PlayerType" EntitySet="PlayerTypes" />
+            <End Role="Player" EntitySet="Players" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Player_Team" Association="BloodBowlDbModel.FK_Player_Team">
+            <End Role="Team" EntitySet="Teams" />
+            <End Role="Player" EntitySet="Players" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlayerGameAssoc_Player" Association="BloodBowlDbModel.FK_PlayerGameAssoc_Player">
+            <End Role="Player" EntitySet="Players" />
+            <End Role="PlayerGameAssoc" EntitySet="PlayerGameAssocs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlayerGameSkillAssoc_PlayerGame" Association="BloodBowlDbModel.FK_PlayerGameSkillAssoc_PlayerGame">
+            <End Role="PlayerGameAssoc" EntitySet="PlayerGameAssocs" />
+            <End Role="PlayerGameSkillAssoc" EntitySet="PlayerGameSkillAssocs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlayerGameSkillAssoc_Skill" Association="BloodBowlDbModel.FK_PlayerGameSkillAssoc_Skill">
+            <End Role="Skill" EntitySet="Skills" />
+            <End Role="PlayerGameSkillAssoc" EntitySet="PlayerGameSkillAssocs" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Owner">
+          <Key>
+            <PropertyRef Name="OwnerId" />
+          </Key>
+          <Property Name="OwnerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LoginId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Teams" Relationship="BloodBowlDbModel.FK_Team_ToTable" FromRole="Owner" ToRole="Team" />
+        </EntityType>
+        <EntityType Name="Race">
+          <Key>
+            <PropertyRef Name="RaceId" />
+          </Key>
+          <Property Name="RaceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RaceName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Teams" Relationship="BloodBowlDbModel.FK_Team_Race" FromRole="Race" ToRole="Team" />
+        </EntityType>
+        <EntityType Name="Team">
+          <Key>
+            <PropertyRef Name="TeamId" />
+          </Key>
+          <Property Name="TeamId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TeamName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RaceId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Race" Relationship="BloodBowlDbModel.FK_Team_Race" FromRole="Team" ToRole="Race" />
+          <Property Name="OwnerId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Owner" Relationship="BloodBowlDbModel.FK_Team_ToTable" FromRole="Team" ToRole="Owner" />
+          <NavigationProperty Name="TeamLeagueAssocs" Relationship="BloodBowlDbModel.FK_TeamLeagueAssoc_Team" FromRole="Team" ToRole="TeamLeagueAssoc" />
+          <NavigationProperty Name="Games" Relationship="BloodBowlDbModel.FK_Game_AwayTeam" FromRole="Team" ToRole="Game" />
+          <NavigationProperty Name="Games1" Relationship="BloodBowlDbModel.FK_Game_HomeTeam" FromRole="Team" ToRole="Game" />
+          <NavigationProperty Name="Players" Relationship="BloodBowlDbModel.FK_Player_Team" FromRole="Team" ToRole="Player" />
+        </EntityType>
+        <Association Name="FK_Team_Race">
+          <End Type="BloodBowlDbModel.Race" Role="Race" Multiplicity="1" />
+          <End Type="BloodBowlDbModel.Team" Role="Team" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Race">
+              <PropertyRef Name="RaceId" />
+            </Principal>
+            <Dependent Role="Team">
+              <PropertyRef Name="RaceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Competition">
+          <Key>
+            <PropertyRef Name="CompetionId" />
+            <PropertyRef Name="CompetitionId" />
+          </Key>
+          <Property Name="CompetionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LeagueId" Type="Int32" Nullable="false" />
+          <Property Name="CompetionTypeId" Type="Int32" Nullable="false" />
+          <Property Name="MaxTeams" Type="Int32" Nullable="false" />
+          <Property Name="TurnDuration" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="League" Relationship="BloodBowlDbModel.FK_Competition_League" FromRole="Competition" ToRole="League" />
+          <Property Name="CompetitionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompetitionTypeId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CompetitionType" Relationship="BloodBowlDbModel.FK_Competition_CompetionType" FromRole="Competition" ToRole="CompetitionType" />
+          <NavigationProperty Name="Games" Relationship="BloodBowlDbModel.FK_Game_Competition" FromRole="Competition" ToRole="Game" />
+        </EntityType>
+        <EntityType Name="CompetitionType">
+          <Key>
+            <PropertyRef Name="CompetionTypeId" />
+            <PropertyRef Name="CompetitionTypeId" />
+          </Key>
+          <Property Name="CompetionTypeId" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CompetitionTypeId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Competitions" Relationship="BloodBowlDbModel.FK_Competition_CompetionType" FromRole="CompetitionType" ToRole="Competition" />
+        </EntityType>
+        <EntityType Name="League">
+          <Key>
+            <PropertyRef Name="LeagueId" />
+          </Key>
+          <Property Name="LeagueId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Logo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="LeagueName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Competitions" Relationship="BloodBowlDbModel.FK_Competition_League" FromRole="League" ToRole="Competition" />
+          <NavigationProperty Name="TeamLeagueAssocs" Relationship="BloodBowlDbModel.FK_TeamLeagueAssoc_League" FromRole="League" ToRole="TeamLeagueAssoc" />
+        </EntityType>
+        <EntityType Name="TeamLeagueAssoc">
+          <Key>
+            <PropertyRef Name="TeamLeagueAssocId" />
+          </Key>
+          <Property Name="TeamLeagueAssocId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TeamId" Type="Int32" Nullable="false" />
+          <Property Name="LeagueId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="League" Relationship="BloodBowlDbModel.FK_TeamLeagueAssoc_League" FromRole="TeamLeagueAssoc" ToRole="League" />
+          <NavigationProperty Name="Team" Relationship="BloodBowlDbModel.FK_TeamLeagueAssoc_Team" FromRole="TeamLeagueAssoc" ToRole="Team" />
+        </EntityType>
+        <Association Name="FK_Competition_League">
+          <End Type="BloodBowlDbModel.League" Role="League" Multiplicity="1" />
+          <End Type="BloodBowlDbModel.Competition" Role="Competition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="League">
+              <PropertyRef Name="LeagueId" />
+            </Principal>
+            <Dependent Role="Competition">
+              <PropertyRef Name="LeagueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TeamLeagueAssoc_League">
+          <End Type="BloodBowlDbModel.League" Role="League" Multiplicity="1" />
+          <End Type="BloodBowlDbModel.TeamLeagueAssoc" Role="TeamLeagueAssoc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="League">
+              <PropertyRef Name="LeagueId" />
+            </Principal>
+            <Dependent Role="TeamLeagueAssoc">
+              <PropertyRef Name="LeagueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Team_ToTable">
+          <End Type="BloodBowlDbModel.Owner" Role="Owner" Multiplicity="1" />
+          <End Type="BloodBowlDbModel.Team" Role="Team" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Owner">
+              <PropertyRef Name="OwnerId" />
+            </Principal>
+            <Dependent Role="Team">
+              <PropertyRef Name="OwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TeamLeagueAssoc_Team">
+          <End Type="BloodBowlDbModel.Team" Role="Team" Multiplicity="1" />
+          <End Type="BloodBowlDbModel.TeamLeagueAssoc" Role="TeamLeagueAssoc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Team">
+              <PropertyRef Name="TeamId" />
+            </Principal>
+            <Dependent Role="TeamLeagueAssoc">
+              <PropertyRef Name="TeamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Game">
+          <Key>
+            <PropertyRef Name="GameId" />
+          </Key>
+          <Property Name="GameId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompetionId" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="HomeTeamId" Type="String" Nullable="false" />
+          <Property Name="AwayTeamId" Type="Int32" Nullable="false" />
+          <Property Name="GameDate" Type="Int32" />
+          <Property Name="CompetionWeek" Type="Int32" Nullable="false" />
+          <Property Name="HomeScore" Type="Int32" Nullable="false" />
+          <Property Name="AwayScore" Type="Int32" Nullable="false" />
+          <Property Name="ReplayId" Type="Int32" />
+          <Property Name="StadiumLevel" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="StadiumName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="CompetitionId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Competition" Relationship="BloodBowlDbModel.FK_Game_Competition" FromRole="Game" ToRole="Competition" />
+          <NavigationProperty Name="Team" Relationship="BloodBowlDbModel.FK_Game_AwayTeam" FromRole="Game" ToRole="Team" />
+          <NavigationProperty Name="Team1" Relationship="BloodBowlDbModel.FK_Game_HomeTeam" FromRole="Game" ToRole="Team" />
+          <NavigationProperty Name="Replay" Relationship="BloodBowlDbModel.FK_Game_Replay" FromRole="Game" ToRole="Replay" />
+          <NavigationProperty Name="GameActions" Relationship="BloodBowlDbModel.FK_GameActions_Game" FromRole="Game" ToRole="GameAction" />
+          <NavigationProperty Name="PlayerGameAssocs" Relationship="BloodBowlDbModel.FK_PlayerGameAssoc_Game" FromRole="Game" ToRole="PlayerGameAssoc" />
+        </EntityType>
+        <EntityType Name="GameAction">
+          <Key>
+            <PropertyRef Name="GameActionId" />
+          </Key>
+          <Property Name="GameActionId" Type="Int32" Nullable="false" />
+          <Property Name="GameId" Type="Int32" Nullable="false" />
+          <Property Name="ActionTypeId" Type="Int32" Nullable="false" />
+          <Property Name="GamePlayerAssocId1" Type="Int32" />
+          <Property Name="GamePlayerAssocId2" Type="Int32" />
+          <Property Name="Turn" Type="Int32" Nullable="false" />
+          <Property Name="Dice1" Type="Int32" />
+          <Property Name="Dice2" Type="Int32" />
+          <Property Name="Dice3" Type="Int32" />
+          <Property Name="RequiredRoll" Type="Int32" />
+          <Property Name="TurnoverRoll" Type="Int32" />
+          <NavigationProperty Name="Game" Relationship="BloodBowlDbModel.FK_GameActions_Game" FromRole="GameAction" ToRole="Game" />
+          <NavigationProperty Name="PlayerGameAssoc" Relationship="BloodBowlDbModel.FK_GameActions_Player1" FromRole="GameAction" ToRole="PlayerGameAssoc" />
+          <NavigationProperty Name="PlayerGameAssoc1" Relationship="BloodBowlDbModel.FK_GameActions_Player2" FromRole="GameAction" ToRole="PlayerGameAssoc" />
+        </EntityType>
+        <EntityType Name="Player">
+          <Key>
+            <PropertyRef Name="PlayerId" />
+          </Key>
+          <Property Name="PlayerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TeamId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PlayerTypeId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="PlayerType" Relationship="BloodBowlDbModel.FK_Player_PlayerType" FromRole="Player" ToRole="PlayerType" />
+          <NavigationProperty Name="Team" Relationship="BloodBowlDbModel.FK_Player_Team" FromRole="Player" ToRole="Team" />
+          <NavigationProperty Name="PlayerGameAssocs" Relationship="BloodBowlDbModel.FK_PlayerGameAssoc_Player" FromRole="Player" ToRole="PlayerGameAssoc" />
+        </EntityType>
+        <EntityType Name="PlayerGameAssoc">
+          <Key>
+            <PropertyRef Name="PlayerGameAssocId" />
+          </Key>
+          <Property Name="PlayerGameAssocId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PlayerId" Type="Int32" />
+          <Property Name="GameId" Type="Int32" />
+          <Property Name="Ma" Type="Int32" />
+          <Property Name="Ag" Type="Int32" />
+          <Property Name="St" Type="Int32" />
+          <Property Name="Av" Type="Int32" />
+          <Property Name="Number" Type="Int32" />
+          <Property Name="Experience" Type="Int32" />
+          <NavigationProperty Name="Game" Relationship="BloodBowlDbModel.FK_PlayerGameAssoc_Game" FromRole="PlayerGameAssoc" ToRole="Game" />
+          <NavigationProperty Name="GameActions" Relationship="BloodBowlDbModel.FK_GameActions_Player1" FromRole="PlayerGameAssoc" ToRole="GameAction" />
+          <NavigationProperty Name="GameActions1" Relationship="BloodBowlDbModel.FK_GameActions_Player2" FromRole="PlayerGameAssoc" ToRole="GameAction" />
+          <NavigationProperty Name="Player" Relationship="BloodBowlDbModel.FK_PlayerGameAssoc_Player" FromRole="PlayerGameAssoc" ToRole="Player" />
+          <NavigationProperty Name="PlayerGameSkillAssocs" Relationship="BloodBowlDbModel.FK_PlayerGameSkillAssoc_PlayerGame" FromRole="PlayerGameAssoc" ToRole="PlayerGameSkillAssoc" />
+        </EntityType>
+        <EntityType Name="PlayerGameSkillAssoc">
+          <Key>
+            <PropertyRef Name="PlayerGameSkillAssocId" />
+          </Key>
+          <Property Name="PlayerGameSkillAssocId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PlayerGameId" Type="Int32" Nullable="false" />
+          <Property Name="SkillId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="PlayerGameAssoc" Relationship="BloodBowlDbModel.FK_PlayerGameSkillAssoc_PlayerGame" FromRole="PlayerGameSkillAssoc" ToRole="PlayerGameAssoc" />
+          <NavigationProperty Name="Skill" Relationship="BloodBowlDbModel.FK_PlayerGameSkillAssoc_Skill" FromRole="PlayerGameSkillAssoc" ToRole="Skill" />
+        </EntityType>
+        <EntityType Name="Replay">
+          <Key>
+            <PropertyRef Name="ReplayId" />
+          </Key>
+          <Property Name="ReplayId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReplayFileLocation" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Games" Relationship="BloodBowlDbModel.FK_Game_Replay" FromRole="Replay" ToRole="Game" />
+        </EntityType>
+        <EntityType Name="Skill">
+          <Key>
+            <PropertyRef Name="Skilld" />
+            <PropertyRef Name="SkillId" />
+          </Key>
+          <Property Name="Skilld" Type="Int32" Nullable="false" />
+          <Property Name="SkillName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SkillId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="PlayerGameSkillAssocs" Relationship="BloodBowlDbModel.FK_PlayerGameSkillAssoc_Skill" FromRole="Skill" ToRole="PlayerGameSkillAssoc" />
+        </EntityType>
+        <EntityType Name="PlayerType">
+          <Key>
+            <PropertyRef Name="PlayerTypeId" />
+          </Key>
+          <Property Name="PlayerTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Players" Relationship="BloodBowlDbModel.FK_Player_PlayerType" FromRole="PlayerType" ToRole="Player" />
+        </EntityType>
+        <Association Name="FK_Competition_CompetionType">
+          <End Type="BloodBowlDbModel.CompetitionType" Role="CompetitionType" Multiplicity="1" />
+          <End Type="BloodBowlDbModel.Competition" Role="Competition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CompetitionType">
+              <PropertyRef Name="CompetitionTypeId" />
+            </Principal>
+            <Dependent Role="Competition">
+              <PropertyRef Name="CompetitionTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Game_Competition">
+          <End Type="BloodBowlDbModel.Competition" Role="Competition" Multiplicity="1" />
+          <End Type="BloodBowlDbModel.Game" Role="Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Competition">
+              <PropertyRef Name="CompetitionId" />
+            </Principal>
+            <Dependent Role="Game">
+              <PropertyRef Name="CompetitionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Game_AwayTeam">
+          <End Type="BloodBowlDbModel.Team" Role="Team" Multiplicity="1" />
+          <End Type="BloodBowlDbModel.Game" Role="Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Team">
+              <PropertyRef Name="TeamId" />
+            </Principal>
+            <Dependent Role="Game">
+              <PropertyRef Name="AwayTeamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Game_HomeTeam">
+          <End Type="BloodBowlDbModel.Team" Role="Team" Multiplicity="1" />
+          <End Type="BloodBowlDbModel.Game" Role="Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Team">
+              <PropertyRef Name="TeamId" />
+            </Principal>
+            <Dependent Role="Game">
+              <PropertyRef Name="HomeTeamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Game_Replay">
+          <End Type="BloodBowlDbModel.Replay" Role="Replay" Multiplicity="0..1" />
+          <End Type="BloodBowlDbModel.Game" Role="Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Replay">
+              <PropertyRef Name="ReplayId" />
+            </Principal>
+            <Dependent Role="Game">
+              <PropertyRef Name="ReplayId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GameActions_Game">
+          <End Type="BloodBowlDbModel.Game" Role="Game" Multiplicity="1" />
+          <End Type="BloodBowlDbModel.GameAction" Role="GameAction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Game">
+              <PropertyRef Name="GameId" />
+            </Principal>
+            <Dependent Role="GameAction">
+              <PropertyRef Name="GameId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlayerGameAssoc_Game">
+          <End Type="BloodBowlDbModel.Game" Role="Game" Multiplicity="0..1" />
+          <End Type="BloodBowlDbModel.PlayerGameAssoc" Role="PlayerGameAssoc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Game">
+              <PropertyRef Name="GameId" />
+            </Principal>
+            <Dependent Role="PlayerGameAssoc">
+              <PropertyRef Name="GameId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GameActions_Player1">
+          <End Type="BloodBowlDbModel.PlayerGameAssoc" Role="PlayerGameAssoc" Multiplicity="0..1" />
+          <End Type="BloodBowlDbModel.GameAction" Role="GameAction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlayerGameAssoc">
+              <PropertyRef Name="PlayerGameAssocId" />
+            </Principal>
+            <Dependent Role="GameAction">
+              <PropertyRef Name="GamePlayerAssocId1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GameActions_Player2">
+          <End Type="BloodBowlDbModel.PlayerGameAssoc" Role="PlayerGameAssoc" Multiplicity="0..1" />
+          <End Type="BloodBowlDbModel.GameAction" Role="GameAction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlayerGameAssoc">
+              <PropertyRef Name="PlayerGameAssocId" />
+            </Principal>
+            <Dependent Role="GameAction">
+              <PropertyRef Name="GamePlayerAssocId2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Player_PlayerType">
+          <End Type="BloodBowlDbModel.PlayerType" Role="PlayerType" Multiplicity="1" />
+          <End Type="BloodBowlDbModel.Player" Role="Player" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlayerType">
+              <PropertyRef Name="PlayerTypeId" />
+            </Principal>
+            <Dependent Role="Player">
+              <PropertyRef Name="PlayerTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Player_Team">
+          <End Type="BloodBowlDbModel.Team" Role="Team" Multiplicity="1" />
+          <End Type="BloodBowlDbModel.Player" Role="Player" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Team">
+              <PropertyRef Name="TeamId" />
+            </Principal>
+            <Dependent Role="Player">
+              <PropertyRef Name="TeamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlayerGameAssoc_Player">
+          <End Type="BloodBowlDbModel.Player" Role="Player" Multiplicity="0..1" />
+          <End Type="BloodBowlDbModel.PlayerGameAssoc" Role="PlayerGameAssoc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="PlayerId" />
+            </Principal>
+            <Dependent Role="PlayerGameAssoc">
+              <PropertyRef Name="PlayerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlayerGameSkillAssoc_PlayerGame">
+          <End Type="BloodBowlDbModel.PlayerGameAssoc" Role="PlayerGameAssoc" Multiplicity="1" />
+          <End Type="BloodBowlDbModel.PlayerGameSkillAssoc" Role="PlayerGameSkillAssoc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlayerGameAssoc">
+              <PropertyRef Name="PlayerGameAssocId" />
+            </Principal>
+            <Dependent Role="PlayerGameSkillAssoc">
+              <PropertyRef Name="PlayerGameId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlayerGameSkillAssoc_Skill">
+          <End Type="BloodBowlDbModel.Skill" Role="Skill" Multiplicity="1" />
+          <End Type="BloodBowlDbModel.PlayerGameSkillAssoc" Role="PlayerGameSkillAssoc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skill">
+              <PropertyRef Name="SkillId" />
+            </Principal>
+            <Dependent Role="PlayerGameSkillAssoc">
+              <PropertyRef Name="SkillId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BloodBowlDbModelStoreContainer" CdmEntityContainer="BloodBowlDbEntities">
+          <EntitySetMapping Name="Owners">
+            <EntityTypeMapping TypeName="BloodBowlDbModel.Owner">
+              <MappingFragment StoreEntitySet="Owner">
+                <ScalarProperty Name="LoginId" ColumnName="LoginId" />
+                <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Races">
+            <EntityTypeMapping TypeName="BloodBowlDbModel.Race">
+              <MappingFragment StoreEntitySet="Race">
+                <ScalarProperty Name="RaceName" ColumnName="RaceName" />
+                <ScalarProperty Name="RaceId" ColumnName="RaceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Teams">
+            <EntityTypeMapping TypeName="BloodBowlDbModel.Team">
+              <MappingFragment StoreEntitySet="Team">
+                <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
+                <ScalarProperty Name="RaceId" ColumnName="RaceId" />
+                <ScalarProperty Name="TeamName" ColumnName="TeamName" />
+                <ScalarProperty Name="TeamId" ColumnName="TeamId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Competitions">
+            <EntityTypeMapping TypeName="BloodBowlDbModel.Competition">
+              <MappingFragment StoreEntitySet="Competition">
+                <ScalarProperty Name="CompetitionTypeId" ColumnName="CompetitionTypeId" />
+                <ScalarProperty Name="CompetitionId" ColumnName="CompetitionId" />
+                <ScalarProperty Name="TurnDuration" ColumnName="TurnDuration" />
+                <ScalarProperty Name="MaxTeams" ColumnName="MaxTeams" />
+                <ScalarProperty Name="LeagueId" ColumnName="LeagueId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CompetitionTypes">
+            <EntityTypeMapping TypeName="BloodBowlDbModel.CompetitionType">
+              <MappingFragment StoreEntitySet="CompetitionType">
+                <ScalarProperty Name="CompetitionTypeId" ColumnName="CompetitionTypeId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Leagues">
+            <EntityTypeMapping TypeName="BloodBowlDbModel.League">
+              <MappingFragment StoreEntitySet="League">
+                <ScalarProperty Name="LeagueName" ColumnName="LeagueName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Logo" ColumnName="Logo" />
+                <ScalarProperty Name="LeagueId" ColumnName="LeagueId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TeamLeagueAssocs">
+            <EntityTypeMapping TypeName="BloodBowlDbModel.TeamLeagueAssoc">
+              <MappingFragment StoreEntitySet="TeamLeagueAssoc">
+                <ScalarProperty Name="LeagueId" ColumnName="LeagueId" />
+                <ScalarProperty Name="TeamId" ColumnName="TeamId" />
+                <ScalarProperty Name="TeamLeagueAssocId" ColumnName="TeamLeagueAssocId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Games">
+            <EntityTypeMapping TypeName="BloodBowlDbModel.Game">
+              <MappingFragment StoreEntitySet="Game">
+                <ScalarProperty Name="CompetitionId" ColumnName="CompetitionId" />
+                <ScalarProperty Name="StadiumName" ColumnName="StadiumName" />
+                <ScalarProperty Name="StadiumLevel" ColumnName="StadiumLevel" />
+                <ScalarProperty Name="ReplayId" ColumnName="ReplayId" />
+                <ScalarProperty Name="AwayScore" ColumnName="AwayScore" />
+                <ScalarProperty Name="HomeScore" ColumnName="HomeScore" />
+                <ScalarProperty Name="CompetionWeek" ColumnName="CompetionWeek" />
+                <ScalarProperty Name="GameDate" ColumnName="GameDate" />
+                <ScalarProperty Name="AwayTeamId" ColumnName="AwayTeamId" />
+                <ScalarProperty Name="HomeTeamId" ColumnName="HomeTeamId" />
+                <ScalarProperty Name="GameId" ColumnName="GameId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GameActions">
+            <EntityTypeMapping TypeName="BloodBowlDbModel.GameAction">
+              <MappingFragment StoreEntitySet="GameActions">
+                <ScalarProperty Name="TurnoverRoll" ColumnName="TurnoverRoll" />
+                <ScalarProperty Name="RequiredRoll" ColumnName="RequiredRoll" />
+                <ScalarProperty Name="Dice3" ColumnName="Dice3" />
+                <ScalarProperty Name="Dice2" ColumnName="Dice2" />
+                <ScalarProperty Name="Dice1" ColumnName="Dice1" />
+                <ScalarProperty Name="Turn" ColumnName="Turn" />
+                <ScalarProperty Name="GamePlayerAssocId2" ColumnName="GamePlayerAssocId2" />
+                <ScalarProperty Name="GamePlayerAssocId1" ColumnName="GamePlayerAssocId1" />
+                <ScalarProperty Name="ActionTypeId" ColumnName="ActionTypeId" />
+                <ScalarProperty Name="GameId" ColumnName="GameId" />
+                <ScalarProperty Name="GameActionId" ColumnName="GameActionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Players">
+            <EntityTypeMapping TypeName="BloodBowlDbModel.Player">
+              <MappingFragment StoreEntitySet="Player">
+                <ScalarProperty Name="PlayerTypeId" ColumnName="PlayerTypeId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TeamId" ColumnName="TeamId" />
+                <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PlayerGameAssocs">
+            <EntityTypeMapping TypeName="BloodBowlDbModel.PlayerGameAssoc">
+              <MappingFragment StoreEntitySet="PlayerGameAssoc">
+                <ScalarProperty Name="Experience" ColumnName="Experience" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Av" ColumnName="Av" />
+                <ScalarProperty Name="St" ColumnName="St" />
+                <ScalarProperty Name="Ag" ColumnName="Ag" />
+                <ScalarProperty Name="Ma" ColumnName="Ma" />
+                <ScalarProperty Name="GameId" ColumnName="GameId" />
+                <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
+                <ScalarProperty Name="PlayerGameAssocId" ColumnName="PlayerGameAssocId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PlayerGameSkillAssocs">
+            <EntityTypeMapping TypeName="BloodBowlDbModel.PlayerGameSkillAssoc">
+              <MappingFragment StoreEntitySet="PlayerGameSkillAssoc">
+                <ScalarProperty Name="SkillId" ColumnName="SkillId" />
+                <ScalarProperty Name="PlayerGameId" ColumnName="PlayerGameId" />
+                <ScalarProperty Name="PlayerGameSkillAssocId" ColumnName="PlayerGameSkillAssocId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Replays">
+            <EntityTypeMapping TypeName="BloodBowlDbModel.Replay">
+              <MappingFragment StoreEntitySet="Replay">
+                <ScalarProperty Name="ReplayFileLocation" ColumnName="ReplayFileLocation" />
+                <ScalarProperty Name="ReplayId" ColumnName="ReplayId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Skills">
+            <EntityTypeMapping TypeName="BloodBowlDbModel.Skill">
+              <MappingFragment StoreEntitySet="Skill">
+                <ScalarProperty Name="SkillId" ColumnName="SkillId" />
+                <ScalarProperty Name="SkillName" ColumnName="SkillName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PlayerTypes">
+            <EntityTypeMapping TypeName="BloodBowlDbModel.PlayerType">
+              <MappingFragment StoreEntitySet="PlayerType">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="PlayerTypeId" ColumnName="PlayerTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
