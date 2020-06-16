@@ -15,13 +15,15 @@ namespace BloodBowl2Luck
         public static PlayerService _playerService;
         public static CoachService _coachService;
         public static TeamService _teamService;
+        public static ActionService _actionService;
 
-        public Program(XmlService xmlService, PlayerService playerService, CoachService coachService, TeamService teamService)
+        public Program(XmlService xmlService, PlayerService playerService, CoachService coachService, TeamService teamService, ActionService actionService)
         {
             _xmlService = xmlService;
             _playerService = playerService;
             _coachService = coachService;
             _teamService = teamService;
+            _actionService = actionService;
         }
         private static void Run()
         {
@@ -30,19 +32,21 @@ namespace BloodBowl2Luck
 
         static void Main(string[] args)
         {
-            var p = new Program(new XmlService(), new PlayerService(), new CoachService(), new TeamService());
+            var p = new Program(new XmlService(), new PlayerService(), new CoachService(), new TeamService(), new ActionService());
             XmlDocument doc = _xmlService.GetXml();
             var players = _playerService.GetPlayers(doc);
             var coaches = _coachService.GetCoaches(doc);
             var teams = _teamService.GetTeams(doc);
-            var count = 0;
-            foreach (XmlNode node in doc.DocumentElement.GetElementsByTagName("Results"))
-            {
-                count++;
-            }
+            var player = _playerService.GetPlayerById(2, players);
 
-            System.Console.WriteLine(count);
-            var test = 3;
+
+            var count = 0;
+            foreach (var item in _actionService.GetBlockActions(doc, _playerService, players))
+            {
+                System.Console.WriteLine(item);
+            }
         }
+
+        
     }
 }

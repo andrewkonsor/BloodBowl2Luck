@@ -14,7 +14,9 @@ namespace BloodBowl2Luck.Services
         //Return player by Id
         public PlayerModel GetPlayerById(int id, List<PlayerModel> players)
         {
-            throw new NotImplementedException();
+            var playerRtn = players.First(item => item.PlayerId == id);
+
+            return playerRtn;
         }
         //Return list of players for both teams
         public List<PlayerModel> GetPlayers(XmlDocument doc)
